@@ -1,8 +1,9 @@
 package mni.dev.model;
 
+import java.io.Serializable;
 import java.math.BigInteger;
 
-public class Fruit {
+public class Fruit implements Serializable {
     private BigInteger id;
     private String name;
     private String description;

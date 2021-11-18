@@ -2,6 +2,7 @@ package mni.dev.rest.json;
 
 import java.util.Collections;
 import java.util.LinkedHashMap;
+import java.util.Optional;
 import java.util.Set;
 
 import java.math.BigInteger;
@@ -29,6 +30,13 @@ public class FruitResource {
     }
 
     @GET
+    @Path("/getDetailFruit/{id}")
+    public Fruit getDetailFruit(@PathParam("id") BigInteger id){
+        Optional<Fruit> any = fruits.stream().filter(fruit -> fruit.getId().compareTo(id) == 0).findAny();
+        return any.orElse(null);
+    }
+
+    @GET
     @Path("/getFruits")
     public Set<Fruit> getFruits(){
         return fruits;
@@ -42,9 +50,9 @@ public class FruitResource {
     }
 
     @DELETE
-    @Path("/deleteFruit")
-    public Set<Fruit> delete(Fruit fruit) {
-        fruits.removeIf(existingFruit -> existingFruit.getName().contentEquals(fruit.getName()));
+    @Path("/deleteFruit/{id}")
+    public Set<Fruit> delete(@PathParam("id") BigInteger id) {
+        fruits.removeIf(existingFruit -> existingFruit.getId().compareTo(id) == 0);
         return fruits;
     }
 }
